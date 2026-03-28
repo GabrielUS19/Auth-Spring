@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: auth-spring
+
+  threads:
+    virtual:
+      enabled: true
+
+  profiles:
+    default: dev
