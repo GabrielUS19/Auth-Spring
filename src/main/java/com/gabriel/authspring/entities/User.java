@@ -17,7 +17,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "users")
@@ -37,8 +36,13 @@ public class User {
     @Column(name = "hash_password", nullable = false)
     private String hashPassword;
 
-    @Column(nullable = false)
-    private String role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> role;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
